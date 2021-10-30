@@ -1,0 +1,21 @@
+.vbox{
+    -fx-background-color: linear-gradient(#dad2f3,#fba8a4);
+}
+
+.anchorpane{
+    -fx-background-color: rgb(31,31,31);
+}
+
+.button{
+    -fx-background-color:none;
+}
+
+.button:hover{
+    -fx-background-color:rgba(253,228,227,0.5)
+}
+
+.text-field{
+    -fx-background-color:none;
+    -fx-border-color: black;
+    -fx-border-width: 0 0 1 0;
+}
