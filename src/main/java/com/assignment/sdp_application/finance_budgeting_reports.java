@@ -38,7 +38,7 @@ public class finance_budgeting_reports {
 
     //Table Array
     //budgetingReport class is created to cluster all the items in the income statement to a date
-    private ObservableList<budgetingReport> incomestatementdates = FXCollections.observableArrayList();
+    private ObservableList<BudgetingReport> incomestatementdates = FXCollections.observableArrayList();
 
 
     private Stage stage;
@@ -66,7 +66,7 @@ public class finance_budgeting_reports {
         System.out.println(items.get(0).getValue().getItemBudgetedAmount());
 
         //Create object for a cluster
-        budgetingReport test1 = new budgetingReport(items,items.get(0).getValue().getItemDate());
+        BudgetingReport test1 = new BudgetingReport(items,items.get(0).getValue().getItemDate());
 
         //add object to table array
         incomestatementdates.add(test1);
@@ -81,7 +81,7 @@ public class finance_budgeting_reports {
         //Double click record to display pop up of income statement
         budgetingReportTable.setOnMouseClicked(e -> {
             if(e.getClickCount() == 2) {
-                budgetingReport sample = (budgetingReport) budgetingReportTable.getSelectionModel().getSelectedItem();
+                BudgetingReport sample = (BudgetingReport) budgetingReportTable.getSelectionModel().getSelectedItem();
                 try {
                     loaddata(sample.getIncomestatement_items());
                 } catch (IOException ex) {
