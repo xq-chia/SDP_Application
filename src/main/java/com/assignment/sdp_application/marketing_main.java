@@ -17,6 +17,8 @@ public class marketing_main {
     private Button promotionsButton;
     @FXML
     private Button researchButton;
+    @FXML
+    private Button logoutButton;
 
 
     private Stage stage;
@@ -26,10 +28,30 @@ public class marketing_main {
     public void initialize(){
 
         promotionsButton.setOnAction(e -> {
-
+            try {
+                goSomewhere(e,"marketing_promotions.fxml","Promotions");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
         researchButton.setOnAction(e -> {
+            try {
+                goSomewhere(e,"marketing_research.fxml","Research");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
+        logoutButton.setOnAction(e -> {
+            try {
+                Boolean answer = MessageBoxConfirm.display("Logout","Are you sure you want to logout?");
+                if(answer){
+                    goSomewhere(e, "login.fxml","Login");
+                }
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         });
 
 
