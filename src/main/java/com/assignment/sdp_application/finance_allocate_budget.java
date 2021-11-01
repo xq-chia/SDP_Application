@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.sql.Connection;
 
 public class finance_allocate_budget {
 
@@ -107,6 +108,10 @@ public class finance_allocate_budget {
             currentEditingItem.getValue().setItemBudgetedAmount(e.getNewValue());
         });
 
+        //debug
+        Connection conn = Database.getConnection();
+
+        //end debug
         loadData();
 
 
