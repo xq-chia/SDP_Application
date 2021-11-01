@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -37,7 +38,9 @@ public class operations_purchases {
     @FXML
     private Button homeButton;
     @FXML
-    private Button addPurchaseButton;
+    private Button restockProductsButton;
+    @FXML
+    private Button supplierListButton;
 
     private Stage stage;
     private Scene scene;
@@ -66,11 +69,31 @@ public class operations_purchases {
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         });
 
+//        supplierListButton.setOnAction();
+        restockProductsButton.setOnAction(e -> {
+            try {
+                purchasePopUp();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
     }
+
+    public void purchasePopUp() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("operations_purchases_popup.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+
+        Stage stage = new Stage();
+        stage.setTitle("Restock Product");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setOpacity(0.5);
+        stage.show();
+    }
+
 
     public void goSomewhere(ActionEvent e, String fxml, String title) throws IOException {
         root = FXMLLoader.load(getClass().getResource(fxml));
