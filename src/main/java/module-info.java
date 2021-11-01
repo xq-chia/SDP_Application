@@ -8,7 +8,7 @@ module com.assignment.sdp_application {
     requires validatorfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
-    requires eu.hansolo.tilesfx;
+    requires java.sql;
 
     opens com.assignment.sdp_application to javafx.fxml;
     exports com.assignment.sdp_application;

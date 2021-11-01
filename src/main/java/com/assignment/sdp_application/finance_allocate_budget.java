@@ -13,9 +13,13 @@ import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.sql.Connection;
 
 public class finance_allocate_budget {
 
@@ -34,6 +38,8 @@ public class finance_allocate_budget {
     private Button homeButton;
     @FXML
     private Button cancelButton;
+    @FXML
+    private Button allocateButton;
 
     private LocalDate isDate = YearMonth.now().atEndOfMonth();
 
@@ -54,6 +60,7 @@ public class finance_allocate_budget {
     private Scene scene;
     private Parent stageroot;
 
+    private Connection conn = null;
 
 
     public void initialize() {
@@ -71,6 +78,14 @@ public class finance_allocate_budget {
                 goSomewhere(e, "finance_main.fxml","Finance Department Dashboard");
             } catch (IOException ex) {
                 ex.printStackTrace();
+            }
+        });
+
+        allocateButton.setOnAction(e -> {
+            try {
+
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex);
             }
         });
 
@@ -107,24 +122,138 @@ public class finance_allocate_budget {
             currentEditingItem.getValue().setItemBudgetedAmount(e.getNewValue());
         });
 
+        conn = Database.getConnection();
+
         loadData();
 
 
     }
     //Loads Data Function
     public void loadData(){
+        String sql;
+        Statement statement;
+        ResultSet result;
+        LocalDate prevMonthStartDate, prevMonthEndDate;
+
+        prevMonthStartDate = LocalDate.now()
+                                      .minusMonths(1)
+                                      .withDayOfMonth(1);
+        prevMonthEndDate = LocalDate.now()
+                                    .minusMonths(1)
+                                    .withDayOfMonth(prevMonthStartDate.lengthOfMonth());
         //Clear all items from the table array
         items.clear();
 
         //Add Income Statement Items into table array
         //For loop for database
-        items.add(new TreeItem<IncomeStatement>(new IncomeStatement("Expenses",2500.0,isDate)));
+        try {
+            statement = conn.createStatement();
+
+            {
+                sql = "SELECT SUM(sls_price * sls_quantity) AS 'sales'" +
+                        "FROM sales_t " +
+                        "WHERE sls_datetime >= '" + prevMonthStartDate + "' AND " +
+                        "sls_datetime <= '" + prevMonthEndDate + "'";
+                result = statement.executeQuery(sql);
+
+                while (result.next()) {
+                    IncomeStatement item;
+                    String name;
+                    Double actual;
+                    LocalDate date;
+
+                    name = "Sales";
+                    actual = result.getDouble("sales");
+                    date = LocalDate.now();
+
+                    item = new IncomeStatement(name, actual, date);
+
+                    items.add(new TreeItem<IncomeStatement>(item));
+                }
+            }
+
+            {
+                sql = "SELECT SUM(po_unit_price * po_quantity) AS 'purchases'" +
+                        "FROM purchase_order_t " +
+                        "WHERE po_date >= '" + prevMonthStartDate + "' AND " +
+                        "po_date <= '" + prevMonthEndDate + "'";
+                result = statement.executeQuery(sql);
+
+                while (result.next()) {
+                    IncomeStatement item;
+                    String name;
+                    Double actual;
+                    LocalDate date;
+
+                    name = "Purchases";
+                    actual = result.getDouble("purchases");
+                    date = LocalDate.now();
+
+                    item = new IncomeStatement(name, actual, date);
+
+                    items.add(new TreeItem<IncomeStatement>(item));
+                }
+            }
+
+            {
+                sql = "SELECT SUM(po_discount) AS 'bulk_discount' " +
+                        "FROM purchase_order_t " +
+                        "WHERE po_date >= '" + prevMonthStartDate + "' AND " +
+                        "po_date <= '" + prevMonthEndDate + "'";
+                System.out.println(sql);
+                result = statement.executeQuery(sql);
+
+                while (result.next()) {
+                    IncomeStatement item;
+                    String name;
+                    Double actual;
+                    LocalDate date;
+
+                    name = "Bulk Discount";
+                    actual = result.getDouble("bulk_discount");
+                    date = LocalDate.now();
+
+                    item = new IncomeStatement(name, actual, date);
+
+                    items.add(new TreeItem<IncomeStatement>(item));
+                }
+            }
+
+            {
+                sql = "SELECT * " +
+                        "FROM expenses_t " +
+                        "WHERE exp_date >= '" + prevMonthStartDate + "' AND " +
+                        "exp_date <= '" + prevMonthEndDate + "'";
+                result = statement.executeQuery(sql);
+
+                while (result.next()) {
+                    IncomeStatement item;
+                    String name;
+                    Double actual;
+                    LocalDate date;
+
+                    name = result.getString("exp_type");
+                    actual = result.getDouble("exp_amount");
+                    date = LocalDate.now();
+
+                    item = new IncomeStatement(name, actual, date);
+
+                    items.add(new TreeItem<IncomeStatement>(item));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex);
+        }
+
 
 
         //Add table array items into their individual roots
-        for(int i = 0 ; i < items.size();i++){
-            revenueroot.getChildren().add(items.get(i));
-            cosroot.getChildren().add(items.get(i));
+        revenueroot.getChildren().add(items.get(0));
+        cosroot.getChildren().add(items.get(1));
+        incomeroot.getChildren().add(items.get(2));
+
+        for(int i = 3; i < items.size(); i++){
+            expenseroot.getChildren().add(items.get(i));
         }
 
         //refreshes the table

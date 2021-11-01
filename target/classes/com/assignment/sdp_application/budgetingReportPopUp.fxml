@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TreeTableView?>
+
+<TreeTableView fx:id="budgetingReportTable" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="table-view" stylesheets="@budgetingReportPopUp.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.sdp_application.budgetingReportPopUp">
+  <columns>
+    <TreeTableColumn fx:id="incomestatementitems" prefWidth="75.0" text="Income Statement Items" />
+    <TreeTableColumn fx:id="budgetedAmount" prefWidth="75.0" text="Budgeted Amount" />
+      <TreeTableColumn fx:id="actualAmount" prefWidth="75.0" text="Actual Amount" />
+  </columns>
+   <columnResizePolicy>
+      <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+   </columnResizePolicy>
+</TreeTableView>

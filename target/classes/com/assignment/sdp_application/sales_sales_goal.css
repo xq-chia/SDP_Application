@@ -1,0 +1,32 @@
+.vbox{
+    -fx-background-color: linear-gradient(#dad2f3,#fba8a4);
+}
+
+.anchorpane{
+    -fx-background-color: rgb(31,31,31);
+}
+
+.label{
+    -fx-text-fill: white;
+    }
+
+
+.button{
+    -fx-padding: 10 40 10 40;
+    -fx-background-color: rgb(31,31,31);
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+}
+
+.button:hover{
+    -fx-background-color: rgb(38, 38, 38);
+}
+
+.logoutButton{
+    -fx-padding: 0 0 0 0;
+}
+
+.text-field{
+    -fx-padding: 10 30 10 30;
+    -fx-background-color: rgba(253,228,227,0.5);
+}

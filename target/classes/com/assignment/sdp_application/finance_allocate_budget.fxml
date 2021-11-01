@@ -70,7 +70,7 @@
       </TreeTableView>
       <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="600.0" spacing="20.0">
          <children>
-            <Button id="allocateButton" mnemonicParsing="false" text="Allocate Budget">
+            <Button mnemonicParsing="false" text="Allocate Budget">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
