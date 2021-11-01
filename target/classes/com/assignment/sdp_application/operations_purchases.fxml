@@ -75,7 +75,12 @@
                   </TableView>
                   <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="1080.0" spacing="20.0">
                      <children>
-                        <Button fx:id="addPurchaseButton" mnemonicParsing="false" text="Add Purchase">
+                        <Button fx:id="restockProductsButton" mnemonicParsing="false" text="Restock Products">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button fx:id="supplierListButton" mnemonicParsing="false" text="Supplier List">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>

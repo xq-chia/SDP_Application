@@ -81,13 +81,9 @@ public class finance_allocate_budget {
             }
         });
 
-        allocateButton.setOnAction(e -> {
-            try {
-
-            } catch (SQLException ex) {
-                System.out.println("Error: " + ex);
-            }
-        });
+//        allocateButton.setOnAction(e -> {
+//
+//        });
 
         //Set Text for Title
         datelabel.setText(datelabel.getText() + YearMonth.now().atEndOfMonth());
