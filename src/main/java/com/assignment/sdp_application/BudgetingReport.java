@@ -5,16 +5,16 @@ import javafx.scene.control.TreeItem;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class budgetingReport {
+public class BudgetingReport {
 
     private ArrayList<TreeItem<IncomeStatement>> incomestatement_items;
     private LocalDate incomestatement_dates;
 
-    public budgetingReport(LocalDate incomestatement_dates) {
+    public BudgetingReport(LocalDate incomestatement_dates) {
         this.incomestatement_dates = incomestatement_dates;
     }
 
-    public budgetingReport(ArrayList<TreeItem<IncomeStatement>> incomestatement_items, LocalDate incomestatement_dates) {
+    public BudgetingReport(ArrayList<TreeItem<IncomeStatement>> incomestatement_items, LocalDate incomestatement_dates) {
         this.incomestatement_items = incomestatement_items;
         this.incomestatement_dates = incomestatement_dates;
     }

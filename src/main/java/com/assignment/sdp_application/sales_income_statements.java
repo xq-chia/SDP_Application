@@ -25,11 +25,11 @@ public class sales_income_statements {
     @FXML
     private Button homeButton;
     @FXML
-    private TableView<budgetingReport> incomeStatementTable;
+    private TableView<BudgetingReport> incomeStatementTable;
     @FXML
-    private TableColumn<budgetingReport, LocalDate> incomeStatementColumn;
+    private TableColumn<BudgetingReport, LocalDate> incomeStatementColumn;
 
-    private ObservableList<budgetingReport> salesItems = FXCollections.observableArrayList();
+    private ObservableList<BudgetingReport> salesItems = FXCollections.observableArrayList();
 
     private Stage stage;
     private Scene scene;
@@ -61,7 +61,7 @@ public class sales_income_statements {
 
         //get Date from the Object as all of them should be the same
         //Need adjustment
-        salesItems.add(new budgetingReport(items,items.get(0).getValue().getItemDate()));
+        salesItems.add(new BudgetingReport(items,items.get(0).getValue().getItemDate()));
 
 
         //Load Object into Table
@@ -69,7 +69,7 @@ public class sales_income_statements {
 
         incomeStatementTable.setOnMouseClicked(e -> {
 
-            budgetingReport sample = (budgetingReport) incomeStatementTable.getSelectionModel().getSelectedItem();
+            BudgetingReport sample = (BudgetingReport) incomeStatementTable.getSelectionModel().getSelectedItem();
             try {
                 loaddata(sample.getIncomestatement_items());
             } catch (IOException ex) {

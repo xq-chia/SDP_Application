@@ -129,7 +129,7 @@ public class pos_addsales {
                 }
 
                 for(int i = 0; i <cart.size(); i++){
-                    subtotal -= cart.get(i).getPrice();
+                    subtotal -= cart.get(i).getOriprice();
                 }
                 salestax = subtotal* 0.1;
                 finaltotal = subtotal + salestax;

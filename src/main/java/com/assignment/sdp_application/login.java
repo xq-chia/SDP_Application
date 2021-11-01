@@ -83,6 +83,10 @@ public class login {
                     goSomewhere(e,"pos_main.fxml","POS Dashboard");
                 }
 
+                else if(user.equals("marketing")){
+                    goSomewhere(e,"marketing_main.fxml","Marketing Department Dashboard");
+                }
+
             }
 
             else{
