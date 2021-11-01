@@ -14,6 +14,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -90,7 +91,8 @@ public class operations_purchases {
         stage.setTitle("Restock Product");
         stage.setScene(new Scene(root));
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setOpacity(0.5);
+        stage.setOpacity(0.98);
+        stage.setResizable(false);
         stage.show();
     }
 
