@@ -9,7 +9,7 @@ public class Database {
         String databaseURL, username, password;
         Connection conn;
 
-        databaseURL = "jdbc:mysql://localhost:3306/java";
+        databaseURL = "jdbc:mysql://localhost:3306/sdp";
         username = "root";
         password = "";
         conn = null;
@@ -19,7 +19,6 @@ public class Database {
         } catch (SQLException ex) {
             System.out.println("Failed to connect to database: " + ex);
         }
-        System.out.println("Connected");
         return conn;
     }
 }
