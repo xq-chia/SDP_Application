@@ -13,13 +13,10 @@ import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 
 import java.io.IOException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
-import java.sql.Connection;
 
 public class finance_allocate_budget {
 
@@ -81,9 +78,13 @@ public class finance_allocate_budget {
             }
         });
 
-//        allocateButton.setOnAction(e -> {
-//
-//        });
+        allocateButton.setOnAction(e -> {
+            try {
+                allocateBudget();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        });
 
         //Set Text for Title
         datelabel.setText(datelabel.getText() + YearMonth.now().atEndOfMonth());
@@ -121,9 +122,8 @@ public class finance_allocate_budget {
         conn = Database.getConnection();
 
         loadData();
-
-
     }
+
     //Loads Data Function
     public void loadData(){
         String sql;
@@ -196,7 +196,6 @@ public class finance_allocate_budget {
                         "FROM purchase_order_t " +
                         "WHERE po_date >= '" + prevMonthStartDate + "' AND " +
                         "po_date <= '" + prevMonthEndDate + "'";
-                System.out.println(sql);
                 result = statement.executeQuery(sql);
 
                 while (result.next()) {
@@ -254,6 +253,94 @@ public class finance_allocate_budget {
 
         //refreshes the table
         allocatebudgettable.refresh();
+    }
+
+    public void allocateBudget() throws SQLException {
+        String sql;
+        PreparedStatement prepSql;
+        int rowInserted, pkValue;
+        TreeItem<IncomeStatement> item;
+
+        {
+            sql = "INSERT INTO income_statement_t " +
+                    "VALUES (?, ?, ?, ?, ?)";
+            prepSql = conn.prepareStatement(sql);
+            item = items.get(0);
+            pkValue = Database.getPrimaryKeyValue(conn, "income_statement_t");
+            prepSql.setString(1, Database.getPrimaryKeyString(pkValue, "IS", 8));
+            prepSql.setString(2, item.getValue().getItemDate().toString());
+            prepSql.setString(3, item.getValue().getItem());
+            prepSql.setString(4, item.getValue().getItemActualAmount().toString());
+            prepSql.setString(5, Double.toString(col3.getCellData(1)));
+            System.out.println(prepSql);
+            rowInserted = prepSql.executeUpdate();
+
+            if (rowInserted > 0) {
+                System.out.println("Inserted sql: " + prepSql);
+            } else {
+                System.out.println("failed: ");
+            }
+        }
+
+        {
+            sql = "INSERT INTO income_statement_t " +
+                    "VALUES (?, ?, ?, ?, ?)";
+            prepSql = conn.prepareStatement(sql);
+            item = items.get(1);
+            pkValue = Database.getPrimaryKeyValue(conn, "income_statement_t");
+            prepSql.setString(1, Database.getPrimaryKeyString(pkValue, "IS", 8));
+            prepSql.setString(2, item.getValue().getItemDate().toString());
+            prepSql.setString(3, item.getValue().getItem());
+            prepSql.setString(4, item.getValue().getItemActualAmount().toString());
+            prepSql.setString(5, Double.toString(col3.getCellData(3)));
+            System.out.println(prepSql);
+            rowInserted = prepSql.executeUpdate();
+
+            if (rowInserted > 0) {
+                System.out.println("Inserted sql: " + prepSql);
+            } else {
+                System.out.println("failed: ");
+            }
+        }
+
+        {
+            sql = "INSERT INTO income_statement_t " +
+                    "VALUES (?, ?, ?, ?, ?)";
+            prepSql = conn.prepareStatement(sql);
+            item = items.get(2);
+            pkValue = Database.getPrimaryKeyValue(conn, "income_statement_t");
+            prepSql.setString(1, Database.getPrimaryKeyString(pkValue, "IS", 8));
+            prepSql.setString(2, item.getValue().getItemDate().toString());
+            prepSql.setString(3, item.getValue().getItem());
+            prepSql.setString(4, item.getValue().getItemActualAmount().toString());
+            prepSql.setString(5, Double.toString(col3.getCellData(5)));
+            System.out.println(prepSql);
+            rowInserted = prepSql.executeUpdate();
+
+            if (rowInserted > 0) {
+                System.out.println("Inserted sql: " + prepSql);
+            } else {
+                System.out.println("failed: ");
+            }
+        }
+
+        for (int i = 3; i < items.size(); i++) {
+            item = items.get(i);
+            pkValue = Database.getPrimaryKeyValue(conn, "income_statement_t");
+
+            prepSql.setString(1, Database.getPrimaryKeyString(pkValue + i, "IS", 8));
+            prepSql.setString(2, item.getValue().getItemDate().toString());
+            prepSql.setString(3, item.getValue().getItem());
+            prepSql.setString(4, item.getValue().getItemActualAmount().toString());
+            prepSql.setString(5, Double.toString(col3.getCellData(i + 4)));
+
+            System.out.println(prepSql);
+            prepSql.addBatch();
+
+            if (i + 1 == items.size()) {
+                prepSql.executeBatch();
+            }
+        }
     }
 
     public void goSomewhere(ActionEvent event, String fxml, String title) throws IOException {

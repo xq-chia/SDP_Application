@@ -1,8 +1,6 @@
 package com.assignment.sdp_application;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Database {
     public static Connection getConnection() {
@@ -20,5 +18,32 @@ public class Database {
             System.out.println("Failed to connect to database: " + ex);
         }
         return conn;
+    }
+
+    public static int getPrimaryKeyValue(Connection conn, String table) {
+        String sql;
+        Statement statement;
+        ResultSet result;
+        int pkValue;
+
+        pkValue = 0;
+
+        try {
+            sql = "SELECT COUNT(*) AS 'rowNum' FROM " + table;
+            statement = conn.createStatement();
+            result = statement.executeQuery(sql);
+
+            if (result.next()) {
+                pkValue = result.getInt("rowNum") + 1;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex);
+        }
+
+        return pkValue;
+    }
+
+    public static String getPrimaryKeyString(int pkValue, String prefix, int length) {
+        return String.format("%s%0" + (length - prefix.length()) + "d", prefix, pkValue);
     }
 }
