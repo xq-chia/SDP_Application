@@ -32,10 +32,6 @@
     -fx-background-color: rgb(38, 38, 38);
 }
 
-.table-view{
-    -fx-background-color: #131313;
-}
-
 .table-view .column-header{
     -fx-background-color:#050505;
     -fx-text-fill: white;
@@ -50,6 +46,3 @@
 
 }
 
-.table-view .table-column {
-  -fx-alignment: CENTER;
-}

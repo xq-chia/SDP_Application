@@ -2,21 +2,33 @@ package com.assignment.sdp_application;
 
 import javafx.scene.control.TreeItem;
 
-import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.YearMonth;
 import java.util.ArrayList;
 
 public class BudgetingReport {
 
     private ArrayList<TreeItem<IncomeStatement>> incomestatement_items;
-    private LocalDate incomestatement_dates;
+    private int year;
+    private String months;
 
-    public BudgetingReport(LocalDate incomestatement_dates) {
-        this.incomestatement_dates = incomestatement_dates;
+    public BudgetingReport(int year) {
+        this.year = year;
     }
 
-    public BudgetingReport(ArrayList<TreeItem<IncomeStatement>> incomestatement_items, LocalDate incomestatement_dates) {
+    public BudgetingReport(String months) {
+        this.months = months;
+    }
+    public BudgetingReport(ArrayList<TreeItem<IncomeStatement>> incomestatement_items, int year, String months) {
         this.incomestatement_items = incomestatement_items;
-        this.incomestatement_dates = incomestatement_dates;
+        this.year = year;
+        this.months = months;
+    }
+
+
+    public BudgetingReport() {
+
     }
 
     public ArrayList<TreeItem<IncomeStatement>> getIncomestatement_items() {
@@ -27,11 +39,19 @@ public class BudgetingReport {
         this.incomestatement_items = incomestatement_items;
     }
 
-    public LocalDate getIncomestatement_dates() {
-        return incomestatement_dates;
+    public int getYear() {
+        return year;
     }
 
-    public void setIncomestatement_dates(LocalDate incomestatement_dates) {
-        this.incomestatement_dates = incomestatement_dates;
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getMonths() {
+        return months;
+    }
+
+    public void setMonths(String months) {
+        this.months = months;
     }
 }
