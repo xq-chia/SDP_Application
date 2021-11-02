@@ -62,6 +62,9 @@ public class sales_current_sales {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatted = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = now.format(formatted);
+
+        System.out.println(formattedDate);
+
         LocalDateTime Dateformatted = LocalDateTime.parse(formattedDate,formatted);
 
         //Create a new Sales Object as sample
