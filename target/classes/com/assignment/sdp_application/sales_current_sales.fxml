@@ -53,7 +53,7 @@
                <children>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Label fx:id="currentSalesLabel" alignment="CENTER" prefHeight="78.0" prefWidth="560.0" style="-fx-text-fill: black;" text="Current Sales:" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Label fx:id="currentSalesLabel" alignment="CENTER" prefHeight="78.0" prefWidth="560.0" style="-fx-text-fill: black;" text="Current Sales: " AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <font>
                               <Font name="Century Gothic" size="36.0" />
                            </font>

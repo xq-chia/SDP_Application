@@ -71,6 +71,38 @@ public class sales_current_sales {
     }
 
     public void loadData() {
+        loadCurrentSales();
+        loadMostSoldProduct();
+    }
+
+    public void loadCurrentSales() {
+        String sql, currentSales;
+        Statement statement;
+        ResultSet result;
+        LocalDate startOfMonth = LocalDate.now().withDayOfMonth(1);
+
+        sql = "SELECT SUM(sls_price) AS 'total' " +
+                "FROM sales_t " +
+                "WHERE sls_datetime >= '" + startOfMonth.toString() + "'";
+        currentSales = "";
+        try {
+            statement = conn.createStatement();
+            result = statement.executeQuery(sql);
+
+            if (result.next()) {
+                if (result.getString("total") == "null") {
+                    currentSales = currentSalesLabel.getText() + result.getString("total");
+                } else {
+                    currentSales = currentSalesLabel.getText() + String.valueOf(0.00);
+                }
+            }
+            currentSalesLabel.setText(currentSales);
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex);
+        }
+    }
+
+    public void loadMostSoldProduct() {
         String sql;
         Statement statement;
         ResultSet result;
