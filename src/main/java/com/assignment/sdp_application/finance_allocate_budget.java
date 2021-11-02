@@ -341,6 +341,7 @@ public class finance_allocate_budget {
                 prepSql.executeBatch();
             }
         }
+        MessageBox.display("Operation Successful", "The budget has been allocated.");
     }
 
     public void goSomewhere(ActionEvent event, String fxml, String title) throws IOException {
