@@ -14,11 +14,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="480.0" prefWidth="720.0" spacing="20.0" stylesheets="@FormPopup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.sdp_application.operations_purchases_popup">
+<VBox prefHeight="480.0" prefWidth="720.0" spacing="20.0" stylesheets="@FormPopup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.sdp_application.operations_purchases_addproduct_popup">
    <children>
       <AnchorPane prefHeight="93.0" prefWidth="720.0">
          <children>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="720.0" text="Restock Product" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="720.0" text="Add Product" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font name="Century Gothic" size="36.0" />
                </font>
@@ -41,69 +41,46 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-
                   <Label text="Supplier">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-
                   <Label text="Product Name" GridPane.rowIndex="1">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-
+                  <Label text="Initial Quantity" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Selling Price" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Century Gothic" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="supplierInput" promptText="Please select a valid supplier" GridPane.columnIndex="1" />
+                  <TextField fx:id="productNameInput" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ComboBox fx:id="productTypeComboBox" promptText="Please select a product type" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <children>
+                        <TextField fx:id="initialQuantityInput" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <TextField fx:id="sellingPriceInput" promptText="(RM)" />
+                     </children>
+                  </HBox>
                   <Label text="Product Type" GridPane.rowIndex="2">
                      <font>
                         <Font name="Century Gothic" size="14.0" />
                      </font>
                   </Label>
-
-                  <Label text="Price per Piece" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="Century Gothic" size="14.0" />
-                     </font>
-                  </Label>
-
-                  <Label text="Initial Quantity" GridPane.rowIndex="4">
-                     <font>
-                        <Font name="Century Gothic" size="14.0" />
-                     </font>
-                  </Label>
-
-                  <Label text="Selling Price" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="Century Gothic" size="14.0" />
-                     </font>
-                  </Label>
-
-                  <ComboBox fx:id="supplierComboBox" prefHeight="25.0" prefWidth="340.0" promptText="Please select a supplier" GridPane.columnIndex="1" />
-
-                  <ComboBox fx:id="productComboBox" prefHeight="25.0" prefWidth="317.0" promptText="Please select a product type" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                     <children>
-                        <TextField fx:id="priceInput" promptText="(RM)" />
-                     </children>
-                  </HBox>
-
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <children>
-                        <TextField fx:id="quantityInput" promptText="(Quantity)" />
-                     </children>
-                  </HBox>
-
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <children>
-                        <TextField fx:id="totalInput" promptText="(RM)" />
-                     </children>
-                  </HBox>
-                  <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </children>
@@ -113,12 +90,12 @@
       </AnchorPane>
       <HBox alignment="CENTER" prefHeight="41.0" prefWidth="426.0" spacing="20.0">
          <children>
-            <Button fx:id="addPurchaseButton" mnemonicParsing="false" text="Add Purchase">
+            <Button fx:id="addProductButton" focusTraversable="false" mnemonicParsing="false" text="Add Product">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel">
+            <Button fx:id="cancelButton" focusTraversable="false" mnemonicParsing="false" text="Cancel">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>

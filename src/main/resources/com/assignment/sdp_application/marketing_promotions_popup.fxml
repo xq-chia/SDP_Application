@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="480.0" prefWidth="720.0" spacing="20.0" stylesheets="@FormPopup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.sdp_application.operations_purchases_popup">
+<VBox prefHeight="480.0" prefWidth="720.0" spacing="20.0" stylesheets="@FormPopup.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.sdp_application.operations_purchases_restock_popup">
    <children>
       <AnchorPane prefHeight="93.0" prefWidth="720.0">
          <children>

@@ -41,6 +41,8 @@ public class operations_purchases {
     @FXML
     private Button restockProductsButton;
     @FXML
+    private Button addProductButton;
+    @FXML
     private Button supplierListButton;
 
     private Stage stage;
@@ -72,7 +74,15 @@ public class operations_purchases {
             }
         });
 
-//        supplierListButton.setOnAction();
+        addProductButton.setOnAction(e -> {
+            try {
+                addProductPopup();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+
         restockProductsButton.setOnAction(e -> {
             try {
                 purchasePopUp();
@@ -84,7 +94,21 @@ public class operations_purchases {
     }
 
     public void purchasePopUp() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("operations_purchases__restock_popup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("operations_purchases_restock_popup.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+
+        Stage stage = new Stage();
+        stage.setTitle("Restock Product");
+        stage.setScene(new Scene(root));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setOpacity(0.98);
+        stage.setResizable(false);
+        stage.show();
+    }
+
+
+    public void addProductPopup() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("operations_purchases_addproduct_popup.fxml"));
         Parent root = (Parent) fxmlLoader.load();
 
         Stage stage = new Stage();
