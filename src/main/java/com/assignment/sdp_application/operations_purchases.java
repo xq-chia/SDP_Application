@@ -84,7 +84,7 @@ public class operations_purchases {
     }
 
     public void purchasePopUp() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("operations_purchases_popup.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("operations_purchases__restock_popup.fxml"));
         Parent root = (Parent) fxmlLoader.load();
 
         Stage stage = new Stage();

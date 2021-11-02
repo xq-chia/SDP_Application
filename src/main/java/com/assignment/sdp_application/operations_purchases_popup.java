@@ -62,7 +62,7 @@ public class operations_purchases_popup {
 
 
     public void closeWindow(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("operations_purchases_popup.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("operations_purchases__restock_popup.fxml"));
         Stage stage =(Stage)((Node)e.getSource()).getScene().getWindow();
         stage.close();
     }
