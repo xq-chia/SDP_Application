@@ -64,6 +64,7 @@ public class sales_current_sales {
             }
         });
 
+
         loadData();
 
         //Load Object onto Table
