@@ -33,7 +33,14 @@ public class pos_main {
                 ex.printStackTrace();
             }
         });
-
+        
+        inventoryButton.setOnAction(e -> {
+            try {
+                goSomewhere(e,"pos_inventory.fxml","Inventory");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
 
 
         logoutButton.setOnAction(e -> {

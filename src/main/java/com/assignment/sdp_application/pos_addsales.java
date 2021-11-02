@@ -77,6 +77,7 @@ public class pos_addsales {
         });
 
         products.add(new Product("P000001","GoodLife","Jeannie",30,true,"Jeans",50));
+        products.add(new Product("P000002","GoodLife","Jean4Life",30,true,"Jeans",50));
 
         productsTable.setItems(products);
 
@@ -88,7 +89,7 @@ public class pos_addsales {
                     for (int i = 0; i< cart.size(); i++){
                         if (addToCart.getProductName().equals(cart.get(i).getProductName())){
                             cart.get(i).setQuantity(cart.get(i).getQuantity()+1);
-                            cart.get(i).setPrice(cart.get(i).getQuantity() * addToCart.getProductPrice());
+                            cart.get(i).setPrice(cart.get(i).getPrice() + cart.get(i).getOriprice());
                         }
                     }
                 }
@@ -101,9 +102,16 @@ public class pos_addsales {
                 cartTable.refresh();
 
 
-                for(int i = 0; i <cart.size(); i++){
-                    subtotal += cart.get(i).getPrice();
+                if(cart.size() < 1){
+                    subtotal = 0;
                 }
+                else{
+                    subtotal = 0;
+                    for(int i = 0; i <cart.size(); i++){
+                        subtotal = subtotal + cart.get(i).getPrice();
+                    }
+                }
+
                 salestax = subtotal* 0.1;
                 finaltotal = subtotal + salestax;
 
@@ -124,13 +132,21 @@ public class pos_addsales {
                     removeFromCart.setQuantity(removeFromCart.getQuantity()-1);
                     removeFromCart.setPrice(removeFromCart.getPrice() - removeFromCart.getOriprice());
                 }
-                else{
-                cart.remove(removeFromCart);
+                else if(removeFromCart.getQuantity() == 1){
+                    cart.remove(removeFromCart);
+
                 }
 
-                for(int i = 0; i <cart.size(); i++){
-                    subtotal -= cart.get(i).getOriprice();
+                if(cart.size() < 1){
+                    subtotal = 0;
                 }
+                else{
+                    subtotal = 0;
+                    for(int i = 0; i <cart.size(); i++){
+                        subtotal += cart.get(i).getPrice();
+                    }
+                }
+
                 salestax = subtotal* 0.1;
                 finaltotal = subtotal + salestax;
 
@@ -144,10 +160,12 @@ public class pos_addsales {
         });
 
 
-    }
+        //Searching for every key pressed
+        searchInput.setOnKeyPressed(e -> System.out.println("Test"));
 
+        //Add Sales
+        addSalesButton.setOnAction(e -> System.out.println("Test"));
 
-    public void setPrice(){
 
     }
 
