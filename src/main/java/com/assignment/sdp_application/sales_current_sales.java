@@ -16,8 +16,15 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 
 public class sales_current_sales {
     @FXML
@@ -39,6 +46,7 @@ public class sales_current_sales {
     //Table Array
     private ObservableList<Sales> salesItems = FXCollections.observableArrayList();
 
+    private Connection conn = Database.getConnection();
 
     public void initialize(){
 
@@ -56,22 +64,54 @@ public class sales_current_sales {
             }
         });
 
-
-        //Format into DateTime
-        //Need Database Query with Calculation Function
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatted = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        String formattedDate = now.format(formatted);
-        LocalDateTime Dateformatted = LocalDateTime.parse(formattedDate,formatted);
-
-        //Create a new Sales Object as sample
-        salesItems.add(new Sales("S000001","Jeans for Life", 2,100,Dateformatted));
-
+        loadData();
 
         //Load Object onto Table
         mostSoldProductsTable.setItems(salesItems);
+    }
 
+    public void loadData() {
+        String sql;
+        Statement statement;
+        ResultSet result;
+        LocalDate past30days;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
+        past30days= LocalDate.now().minusDays(30);
+        sql = "SELECT t.sls_id, p.prod_name, t.quantity, t.amount, t.sls_datetime " +
+                "FROM product_t p, (SELECT sls_id, prod_id, SUM(sls_quantity) as 'quantity', SUM(sls_price) as 'amount', sls_datetime " +
+                "                   FROM sales_t " +
+                "                   GROUP BY prod_id) t " +
+                "WHERE p.prod_id = t.prod_id AND " +
+                "t.sls_datetime >= '" + past30days.toString() + "' " +
+                "ORDER BY t.amount DESC " +
+                "LIMIT 10";
+        try {
+            statement = conn.createStatement();
+            result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                String salesId, productName;
+                int quantity;
+                Double amount;
+                LocalDateTime dateTime;
+                Sales item;
+
+                salesId = result.getString("sls_id");
+                productName = result.getString("prod_name");
+                quantity = result.getInt("quantity");
+                amount = result.getDouble("amount");
+
+                System.out.println(result.getString("sls_datetime"));
+
+                dateTime = LocalDateTime.parse(result.getString("sls_datetime"), formatter);
+
+                item = new Sales(salesId, productName, quantity, amount, dateTime);
+                salesItems.add(item);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex);
+        }
     }
 
     public void goSomewhere(ActionEvent e, String fxml, String title) throws IOException {
