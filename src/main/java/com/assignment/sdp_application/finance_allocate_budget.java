@@ -52,7 +52,6 @@ public class finance_allocate_budget {
     private TreeItem<IncomeStatement> incomeroot = new TreeItem<>(new IncomeStatement("Additional Income"));
     private TreeItem<IncomeStatement> expenseroot = new TreeItem<>(new IncomeStatement("Expenses"));
 
-
     private Stage stage;
     private Scene scene;
     private Parent stageroot;

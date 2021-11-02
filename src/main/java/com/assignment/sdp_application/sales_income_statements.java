@@ -61,7 +61,7 @@ public class sales_income_statements {
 
         //get Date from the Object as all of them should be the same
         //Need adjustment
-        salesItems.add(new BudgetingReport(items,items.get(0).getValue().getItemDate()));
+        //salesItems.add(new BudgetingReport(items,YearMonth.of(items.get(0).getValue().getItemDate().getYear(),items.get(0).getValue().getItemDate().getMonth())));
 
 
         //Load Object into Table
