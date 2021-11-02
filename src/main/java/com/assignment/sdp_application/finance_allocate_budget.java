@@ -49,8 +49,11 @@ public class finance_allocate_budget {
     //Main roots
     private TreeItem<IncomeStatement> revenueroot = new TreeItem<>(new IncomeStatement("Revenue"));
     private TreeItem<IncomeStatement> cosroot = new TreeItem<>(new IncomeStatement("Costs of Sales"));
+    private TreeItem<IncomeStatement> grossroot = new TreeItem<>(new IncomeStatement("Gross Profit"));
     private TreeItem<IncomeStatement> incomeroot = new TreeItem<>(new IncomeStatement("Additional Income"));
     private TreeItem<IncomeStatement> expenseroot = new TreeItem<>(new IncomeStatement("Expenses"));
+    private TreeItem<IncomeStatement> taxroot = new TreeItem<>(new IncomeStatement("Tax"));
+    private TreeItem<IncomeStatement> netroot = new TreeItem<>(new IncomeStatement("Net Profit"));
 
 
     private Stage stage;
@@ -99,7 +102,7 @@ public class finance_allocate_budget {
         //Add necessary items to table first
         allocatebudgettable.setRoot(root);
         allocatebudgettable.setShowRoot(false);
-        root.getChildren().addAll(revenueroot, cosroot, incomeroot, expenseroot);
+        root.getChildren().addAll(revenueroot, cosroot, grossroot, incomeroot, expenseroot, taxroot, netroot);
 
 
         //Set Column 1 type of data
@@ -313,7 +316,7 @@ public class finance_allocate_budget {
             prepSql.setString(2, item.getValue().getItemDate().toString());
             prepSql.setString(3, item.getValue().getItem());
             prepSql.setString(4, item.getValue().getItemActualAmount().toString());
-            prepSql.setString(5, Double.toString(col3.getCellData(5)));
+            prepSql.setString(5, Double.toString(col3.getCellData(6)));
             System.out.println(prepSql);
             rowInserted = prepSql.executeUpdate();
 
@@ -341,6 +344,7 @@ public class finance_allocate_budget {
                 prepSql.executeBatch();
             }
         }
+        MessageBox.display("Operation Successful", "The budget has been allocated.");
     }
 
     public void goSomewhere(ActionEvent event, String fxml, String title) throws IOException {
