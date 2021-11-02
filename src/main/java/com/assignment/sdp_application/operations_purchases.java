@@ -17,6 +17,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 
 public class operations_purchases {
     @FXML
@@ -50,6 +55,8 @@ public class operations_purchases {
 
     private ObservableList<Purchases> purchases = FXCollections.observableArrayList();
 
+    private Connection conn = Database.getConnection();
+
     public void initialize(){
         purchaseIdColumn.setCellValueFactory(new PropertyValueFactory<>("purchaseId"));
         productNameColumn.setCellValueFactory(new PropertyValueFactory<>("productName"));
@@ -60,7 +67,7 @@ public class operations_purchases {
         discountColumn.setCellValueFactory(new PropertyValueFactory<>("discount"));
 
 
-        purchases.add(new Purchases("P000001","Moody Hoodie","SadLab",15,30,400,50));
+        loadData();
 
         purchaseTable.setItems(purchases);
 
@@ -81,6 +88,41 @@ public class operations_purchases {
             }
         });
 
+    }
+
+    public void loadData() {
+        String sql;
+        Statement statement;
+        ResultSet result;
+        LocalDate startOfMonth = LocalDate.now().withDayOfMonth(1);
+
+        sql = "SELECT * " +
+                "FROM purchase_order_t po, supplier_t s, product_t p " +
+                "WHERE po.prod_id = p.prod_id AND " +
+                "s.sup_id = po.sup_id AND " +
+                "po.po_date >= '" + startOfMonth + "'";
+        try {
+            statement = conn.createStatement();
+            result = statement.executeQuery(sql);
+
+            while (result.next()) {
+                String id, name, supplier;
+                Double price, cost, discount;
+                int quantity;
+
+                id = result.getString("po_id");
+                name = result.getString("prod_name");
+                supplier = result.getString("sup_name");
+                price = result.getDouble("po_unit_price");
+                quantity = result.getInt("po_quantity");
+                discount = result.getDouble("po_discount");
+                cost = price  * quantity - discount;
+
+                purchases.add(new Purchases(id, name, supplier, price, quantity, cost, discount));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex);
+        }
     }
 
     public void purchasePopUp() throws IOException {
